@@ -44,20 +44,19 @@ const Header = () => {
                 </Link>
               </li>
               <li className="nav-item">
-                <a
+                <Link
+                  to="/donation"
                   className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-black hover:opacity-75"
                   href="#pablo"
                 >
-                  <i className="fab fa-twitter text-lg leading-lg text-black opacity-75"></i>
                   <span className="mt-3 ml-2">Donation</span>
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
                 <a
                   className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-black hover:opacity-75"
                   href="#pablo"
                 >
-                  <i className="fab fa-pinterest text-lg leading-lg text-black opacity-75"></i>
                   <span className="mt-3 ml-2">Events</span>
                 </a>
               </li>
@@ -66,7 +65,6 @@ const Header = () => {
                   className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-black hover:opacity-75"
                   href="#pablo"
                 >
-                  <i className="fab fa-pinterest text-lg leading-lg text-black opacity-75"></i>
                   <span className="mt-3 ml-2">Blogs</span>
                 </a>
               </li>
@@ -76,7 +74,6 @@ const Header = () => {
                   className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-black hover:opacity-75"
                   href="#pablo"
                 >
-                  <i className="fab fa-pinterest text-lg leading-lg text-black opacity-75"></i>
                   <span className="mt-3 ml-2">Register</span>
                 </Link>
               </li>
@@ -86,7 +83,6 @@ const Header = () => {
                   className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-black hover:opacity-75"
                   href="#pablo"
                 >
-                  <i className="fab fa-pinterest text-lg leading-lg text-black opacity-75"></i>
                   <span className="mt-3 ml-2">Login</span>
                 </Link>
               </li>

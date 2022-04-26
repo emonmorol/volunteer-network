@@ -1,0 +1,5 @@
+.register-container .form-control {
+  border: 0px;
+  border-bottom: 1px solid gray;
+  border-radius: 2px;
+}
