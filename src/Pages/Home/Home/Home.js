@@ -9,7 +9,6 @@ const Home = () => {
     <div className="home-container">
       <div className="home-content">
         <SearchBar />
-        <h1>This is home</h1>
         <Catagories />
       </div>
     </div>

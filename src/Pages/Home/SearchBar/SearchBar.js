@@ -7,13 +7,13 @@ import "./SearchBar.css";
 const SearchBar = () => {
   return (
     <>
-      <h1 className="uppercase font-bold text-5xl">
+      <h1 className="uppercase font-bold text-5xl mb-5 mt-3">
         I grow by helping people in need
       </h1>
-      <div className="w-2/5 flex flex-col justify-center">
+      <div className="w-2/5 flex flex-col justify-center mb-5">
         <InputGroup className="mb-3">
           <FormControl
-            className="py-3 px-3 search-input"
+            className="py-3    px-3 search-input"
             placeholder="Search Category"
             aria-label="Search Category"
             aria-describedby="search-button"
