@@ -1,0 +1,14 @@
+.search-input {
+  border-top-left-radius: 999px;
+  border-bottom-left-radius: 999px;
+}
+#search-button {
+  color: white;
+  font-weight: 500;
+  display: flex;
+  padding: 0rem 2rem;
+  justify-content: space-around;
+  background-color: #3f90fc;
+  border-top-right-radius: 999px;
+  border-bottom-right-radius: 999px;
+}
