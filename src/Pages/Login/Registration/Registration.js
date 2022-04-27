@@ -4,10 +4,12 @@ import Social from "../Social/Social";
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import auth from "../../../firebase.init";
 import Loading from "../../Shared/Loading/Loading";
+import { useUpdateProfile } from "react-firebase-hooks/auth";
 
 const Registration = () => {
   const [createUserWithEmailAndPassword, user, loading, error] =
     useCreateUserWithEmailAndPassword(auth);
+  const [updateProfile] = useUpdateProfile(auth);
 
   // const [errors, setErrors] = useState({
   //   wrongPassword: "",
@@ -33,9 +35,9 @@ const Registration = () => {
     return <Loading />;
   }
 
-  const handleUserSubmit = (e) => {
+  const handleUserSubmit = async (e) => {
     e.preventDefault();
-    const name = e.target.name.value;
+    const displayName = e.target.name.value;
     const email = e.target.email.value;
     const password = e.target.password.value;
     const confirmPassword = e.target.confirmPassword.value;
@@ -55,7 +57,8 @@ const Registration = () => {
     // } else {
     //   setErrors({ wrongPassword: "", wrongEmail: "", passwordMatch: "" });
     // }
-    createUserWithEmailAndPassword(email, password);
+    await createUserWithEmailAndPassword(email, password);
+    await updateProfile({ displayName });
   };
 
   return (
