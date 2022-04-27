@@ -1,0 +1,19 @@
+.event-container {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+}
+.event-container a {
+  text-decoration: none;
+  text-align: center;
+  color: black;
+  font-weight: 500;
+}
+.event-container p {
+  text-align: center;
+  margin: 5px;
+}
+.event-content {
+  background-color: #f4f7fc;
+  padding: 2rem;
+  height: 100vh;
+}

@@ -8,7 +8,7 @@ const Header = () => {
   const [navbarOpen, setNavbarOpen] = useState(false);
   return (
     <>
-      <nav className="relative flex flex-wrap items-center justify-between px-2 py-3 bg-transparent text-black mb-3 z-10">
+      <nav className="relative flex flex-wrap items-center justify-between px-2 py-3 bg-transparent text-black z-10">
         <div className="container px-4 mx-auto flex items-center justify-between">
           <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
             <Link className="w-1/12" to="/">
@@ -53,12 +53,13 @@ const Header = () => {
                 </Link>
               </li>
               <li className="nav-item">
-                <a
+                <Link
+                  to="/events"
                   className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-black hover:opacity-75"
                   href="#pablo"
                 >
                   <span className="mt-3 ml-2">Events</span>
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
                 <a
