@@ -2,3 +2,8 @@
   border: 0.001px solid gray;
   border-bottom: 2px solid gray;
 }
+.error {
+  color: red;
+  font-size: 15px;
+  text-align: center;
+}

@@ -1,18 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import useCategories from "../../../Hooks/useCategories";
 import CatagoryCard from "../CatagoryCard/CatagoryCard";
 
 const Catagories = () => {
-  const [categories, setCategories] = useState([]);
-  useEffect(() => {
-    fetch("fakedata.json")
-      .then((res) => res.json())
-      .then((data) => setCategories(data));
-  }, []);
+  const [categories] = useCategories();
   return (
     <div className="grid grid-cols-4 gap-4">
       {categories.map((category) => (
         // <p>{category.title}</p>
-        <CatagoryCard key={category.id} category={category} />
+        <CatagoryCard key={category._id} category={category} />
       ))}
     </div>
   );

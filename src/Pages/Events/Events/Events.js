@@ -1,15 +1,14 @@
 import React from "react";
-import { Link, Route, Routes } from "react-router-dom";
+import { Link } from "react-router-dom";
 import AddEvent from "../AddEvent/AddEvent";
-import VolunteerList from "../VolunteerList/VolunteerList";
 import "./Events.css";
 
 const Events = () => {
   return (
     <div className="event-container">
-      <div>
+      <div className="side-nav">
         <p>
-          <Link to="/events/">Volunteer List</Link>
+          <Link to="/events/volunteer-list">Volunteer List</Link>
         </p>
         <p>
           <Link to="/events/">Add Event</Link>

@@ -1,11 +1,16 @@
-import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faSignOut, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../../../logos/ZONE.png";
+import { useAuthState } from "react-firebase-hooks/auth";
+import auth from "../../../firebase.init";
+import { signOut } from "firebase/auth";
 
 const Header = () => {
   const [navbarOpen, setNavbarOpen] = useState(false);
+  const [user] = useAuthState(auth);
+  const navigate = useNavigate();
   return (
     <>
       <nav className="relative flex flex-wrap items-center justify-between px-2 py-3 bg-transparent text-black z-10">
@@ -37,7 +42,7 @@ const Header = () => {
               <li className="nav-item">
                 <Link
                   to="/home"
-                  className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-black hover:opacity-75"
+                  className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug no-underline text-black hover:opacity-75"
                   href="#pablo"
                 >
                   <span className="mt-3 ml-2">Home</span>
@@ -46,7 +51,7 @@ const Header = () => {
               <li className="nav-item">
                 <Link
                   to="/donation"
-                  className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-black hover:opacity-75"
+                  className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug no-underline text-black hover:opacity-75"
                   href="#pablo"
                 >
                   <span className="mt-3 ml-2">Donation</span>
@@ -55,7 +60,7 @@ const Header = () => {
               <li className="nav-item">
                 <Link
                   to="/events"
-                  className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-black hover:opacity-75"
+                  className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug no-underline text-black hover:opacity-75"
                   href="#pablo"
                 >
                   <span className="mt-3 ml-2">Events</span>
@@ -63,30 +68,62 @@ const Header = () => {
               </li>
               <li className="nav-item">
                 <a
-                  className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-black hover:opacity-75"
+                  className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug no-underline text-black hover:opacity-75"
                   href="#pablo"
                 >
                   <span className="mt-3 ml-2">Blogs</span>
                 </a>
               </li>
-              <li className="nav-item">
-                <Link
-                  to="/registration"
-                  className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-black hover:opacity-75"
-                  href="#pablo"
-                >
-                  <span className="mt-3 ml-2">Register</span>
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link
-                  to="/login"
-                  className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-black hover:opacity-75"
-                  href="#pablo"
-                >
-                  <span className="mt-3 ml-2">Login</span>
-                </Link>
-              </li>
+              {user ? (
+                <>
+                  <li className="nav-item">
+                    <Link
+                      to="/profile"
+                      className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug no-underline text-black hover:opacity-75"
+                      href="#pablo"
+                    >
+                      <span className="mt-3 ml-2">
+                        {user?.displayName ? user.displayName : "Volunteer"}
+                      </span>
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <span
+                      onClick={() => {
+                        signOut(auth);
+                        navigate("/login");
+                      }}
+                      className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug no-underline text-black hover:opacity-75 cursor-pointer"
+                      href="#pablo"
+                    >
+                      <span className="mt-3 ml-2">
+                        <FontAwesomeIcon icon={faSignOut} />
+                      </span>
+                    </span>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li className="nav-item">
+                    <Link
+                      to="/registration"
+                      className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug no-underline text-black hover:opacity-75"
+                      href="#pablo"
+                    >
+                      <span className="mt-3 ml-2">Register</span>
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link
+                      to="/admin"
+                      className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug no-underline text-black hover:opacity-75"
+                      href="#pablo"
+                    >
+                      <span className="mt-3 ml-2">Admin</span>
+                    </Link>
+                  </li>
+                </>
+              )}
             </ul>
           </div>
         </div>

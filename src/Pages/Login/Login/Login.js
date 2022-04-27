@@ -1,10 +1,38 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Social from "../Social/Social";
 // import google from "../../../logos/google.png";
 import "./login.css";
+import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
+import auth from "../../../firebase.init";
+import Loading from "../../Shared/Loading/Loading";
 
 const Login = () => {
+  const [signInWithEmailAndPassword, user, loading, error] =
+    useSignInWithEmailAndPassword(auth);
+  const location = useLocation();
+  let from = location.state?.from?.pathname || "/";
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) {
+      navigate(from);
+    }
+  }, [user]);
+  if (loading) {
+    return <Loading />;
+  }
+  let errorMessage;
+  if (error) {
+    errorMessage = <p className="error mt-2">Error: {error.message}</p>;
+  }
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    signInWithEmailAndPassword(email, password);
+  };
   return (
     <>
       <div className="lg:flex">
@@ -15,30 +43,33 @@ const Login = () => {
               Login
             </h2>
             <div className="mt-8">
-              <form>
+              <form onSubmit={handleLogin}>
                 <div className="form-floating mb-3">
                   <input
                     type="email"
+                    name="email"
                     className="form-control"
                     id="floatingInput"
                     placeholder="name@example.com"
                   />
-                  <label for="floatingInput">Email address</label>
+                  <label htmlFor="floatingInput">Email address</label>
                 </div>
                 <div className="form-floating">
                   <input
                     type="password"
+                    name="password"
                     className="form-control "
                     id="floatingPassword"
                     placeholder="Password"
                   />
-                  <label for="floatingPassword">Password</label>
+                  <label htmlFor="floatingPassword">Password</label>
                 </div>
                 <div className="mt-10">
                   <button className="bg-indigo-500 text-gray-100 px-4 py-2.5 w-full rounded-full tracking-wide font-semibold font-display focus:outline-none focus:shadow-outline hover:bg-indigo-600 shadow-lg">
                     Log In
                   </button>
                 </div>
+                {errorMessage}
               </form>
               <div className="flex justify-between">
                 <div className="mt-8 text-sm font-display font-semibold text-gray-700 text-center">

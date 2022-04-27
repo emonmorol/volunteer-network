@@ -1,8 +1,63 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Social from "../Social/Social";
+import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
+import auth from "../../../firebase.init";
+import Loading from "../../Shared/Loading/Loading";
 
 const Registration = () => {
+  const [createUserWithEmailAndPassword, user, loading, error] =
+    useCreateUserWithEmailAndPassword(auth);
+
+  // const [errors, setErrors] = useState({
+  //   wrongPassword: "",
+  //   wrongEmail: "",
+  //   passwordMatch: "",
+  // });
+
+  const location = useLocation();
+  let from = location.state?.from?.pathname || "/";
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) {
+      navigate(from);
+    }
+  }, [user]);
+
+  let errorMessage;
+  if (error) {
+    errorMessage = <p className="error">Error: {error.message}</p>;
+  }
+  if (loading) {
+    return <Loading />;
+  }
+
+  const handleUserSubmit = (e) => {
+    e.preventDefault();
+    const name = e.target.name.value;
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    const confirmPassword = e.target.confirmPassword.value;
+    // if (
+    //   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/.test(password) === false
+    // ) {
+    //   setErrors({
+    //     ...errors,
+    //     wrongPassword: "Password Must Contains one letter and one number",
+    //   });
+    // }
+    // if (password !== confirmPassword) {
+    //   setErrors({ ...errors, passwordMatch: "Password Didn't Match" });
+    // }
+    // if (/\S+@\S+\.\S+/.test(email) === false) {
+    //   setErrors({ ...errors, wrongEmail: "Invalid Email" });
+    // } else {
+    //   setErrors({ wrongPassword: "", wrongEmail: "", passwordMatch: "" });
+    // }
+    createUserWithEmailAndPassword(email, password);
+  };
+
   return (
     <>
       <div className="lg:flex">
@@ -15,43 +70,60 @@ const Registration = () => {
               Registration
             </h2>
             <div className="mt-8">
-              <form>
+              <form onSubmit={handleUserSubmit}>
                 <div className="form-floating mb-3">
                   <input
                     type="text"
+                    name="name"
                     className="form-control"
                     id="floatingInput"
                     placeholder="Your Name"
                   />
-                  <label for="floatingInput">Your full name</label>
+                  <label htmlFor="floatingInput">Your full name</label>
                 </div>
                 <div className="form-floating mb-3">
                   <input
                     type="email"
+                    name="email"
                     className="form-control"
                     id="floatingInput"
                     placeholder="Your Email"
                   />
-                  <label for="floatingInput">Email address</label>
+                  <label htmlFor="floatingInput">Email address</label>
                 </div>
+                {/* {errors?.wrongEmail && (
+                  <p className="error">{errors.wrongEmail}</p>
+                )} */}
                 <div className="form-floating mb-3">
                   <input
                     type="password"
+                    name="password"
                     className="form-control "
                     id="floatingPassword"
                     placeholder="Password"
+                    required
                   />
-                  <label for="floatingPassword">Your Password</label>
+                  <label htmlFor="floatingPassword">Your Password</label>
                 </div>
+                {/* {errors?.wrongPassword && (
+                  <p className="error">{errors.wrongPassword}</p>
+                )} */}
                 <div className="form-floating">
                   <input
                     type="password"
+                    name="confirmPassword"
                     className="form-control "
                     id="floatingConfirmPassword"
                     placeholder="Confirm Password"
                   />
-                  <label for="floatingConfirmPassword">Confirm Password</label>
+                  <label htmlFor="floatingConfirmPassword">
+                    Confirm Password
+                  </label>
                 </div>
+                {/* {errors?.passwordMatch && (
+                  <p className="error">{errors.passwordMatch}</p>
+                )} */}
+                {errorMessage}
                 <div className="mt-8">
                   <button className="bg-indigo-500 text-gray-100 px-4 py-2.5 w-full rounded-full tracking-wide font-semibold font-display focus:outline-none focus:shadow-outline hover:bg-indigo-600 shadow-lg">
                     Register
