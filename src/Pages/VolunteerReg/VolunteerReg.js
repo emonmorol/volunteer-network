@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./VolunteerReg.css";
 import logo from "../../logos/ZONE.png";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useCategories from "../../Hooks/useCategories";
 import auth from "../../firebase.init";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -13,7 +13,7 @@ const VolunteerReg = () => {
   const { categoryId } = useParams();
   const [category, setCategory] = useState({});
   const [user] = useAuthState(auth);
-  const [volunteer, setVolunteer] = useState({});
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (categories) {
@@ -23,33 +23,27 @@ const VolunteerReg = () => {
       }
     }
   }, [categories]);
-
-  useEffect(() => {
-    if (volunteer?.description) {
-      fetch("http://localhost:5000/addVolunteer", {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify(volunteer),
-      });
-    }
-  }, [volunteer]);
   const handleVolunteerRegistration = (e) => {
     e.preventDefault();
     const newVolunteer = {
       name: user?.displayName,
       email: user?.email,
       date: "",
+      data: category,
       description: e.target.description.value,
       books: e.target.books.value,
     };
-    if (volunteer) {
-      setVolunteer(newVolunteer);
-    }
-    toast("registration Complete");
+    axios
+      .post("http://localhost:5000/addDonation", newVolunteer)
+      .then((response) => {
+        const { data } = response;
+        if (data.insertedId) {
+          toast("Registration Complete");
+          e.target.reset();
+          navigate("/");
+        }
+      });
   };
-  console.log(volunteer);
 
   return (
     <div className="register-container lg:w-2/5 w-4/5 border p-5 shadow-lg mx-auto my-16">

@@ -50,11 +50,11 @@ const Header = () => {
               </li>
               <li className="nav-item">
                 <Link
-                  to="/donation"
+                  to="/donations"
                   className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug no-underline text-black hover:opacity-75"
                   href="#pablo"
                 >
-                  <span className="mt-3 ml-2">Donation</span>
+                  <span className="mt-3 ml-2">Donations</span>
                 </Link>
               </li>
               <li className="nav-item">

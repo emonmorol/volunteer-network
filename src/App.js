@@ -12,7 +12,8 @@ import NotFound from "./Pages/Shared/NotFound/NotFound";
 import VolunteerReg from "./Pages/VolunteerReg/VolunteerReg";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import AddedCategory from "./Pages/Profile/AddedCategory/AddedCategory";
+import Donation from "./Pages/Donation/Donation/Donation";
+import Profile from "./Pages/Profile/Profile";
 
 function App() {
   return (
@@ -23,12 +24,20 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/registration" element={<Registration />} />
-        <Route path="/profile" element={<AddedCategory />} />
+        <Route path="/profile" element={<Profile />} />
         <Route
           path="/donation/:categoryId"
           element={
             <RequireAuth>
               <VolunteerReg />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/donations"
+          element={
+            <RequireAuth>
+              <Donation />
             </RequireAuth>
           }
         />

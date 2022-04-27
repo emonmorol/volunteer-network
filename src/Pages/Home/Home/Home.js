@@ -1,6 +1,6 @@
 import React from "react";
+import SearchBar from "../../Shared/Header/SearchBar/SearchBar";
 import Catagories from "../Catagories/Catagories";
-import SearchBar from "../SearchBar/SearchBar";
 // import logo from "../../../logos/banner.png";
 import "./Home.css";
 
