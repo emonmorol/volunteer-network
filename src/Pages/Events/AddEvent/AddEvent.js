@@ -13,7 +13,10 @@ const AddEvent = () => {
 
   useEffect(() => {
     if (categoryInfo.title) {
-      axios.post("http://localhost:5000/category", categoryInfo);
+      axios.post(
+        "https://volunteer-zone-patrified.herokuapp.com/category",
+        categoryInfo
+      );
       toast("This Category Added");
     }
   }, [categoryInfo]);

@@ -34,7 +34,10 @@ const VolunteerReg = () => {
       books: e.target.books.value,
     };
     axios
-      .post("http://localhost:5000/addDonation", newVolunteer)
+      .post(
+        "https://volunteer-zone-patrified.herokuapp.com/addDonation",
+        newVolunteer
+      )
       .then((response) => {
         const { data } = response;
         if (data.insertedId) {

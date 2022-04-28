@@ -8,7 +8,9 @@ const Donation = () => {
   const [donations, setDonations] = useState([]);
   useEffect(() => {
     const getDonations = async () => {
-      await fetch(`http://localhost:5000/donations?email=${user?.email}`)
+      await fetch(
+        `https://volunteer-zone-patrified.herokuapp.com/donations?email=${user?.email}`
+      )
         .then((res) => res.json())
         .then((data) => setDonations(data));
     };
@@ -18,7 +20,7 @@ const Donation = () => {
   const handleDelete = (id) => {
     const proceed = window.confirm("Are Your Sure ??");
     if (proceed) {
-      fetch(`http://localhost:5000/donate/${id}`, {
+      fetch(`https://volunteer-zone-patrified.herokuapp.com/donate/${id}`, {
         method: "DELETE",
       })
         .then((res) => res.json())
